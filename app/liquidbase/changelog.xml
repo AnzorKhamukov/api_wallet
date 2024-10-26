@@ -1,0 +1,26 @@
+<databaseChangeLog xmlns="http - FORBIDDEN - www.liquibase.org/xml/ns/dbchangelog" xmlns:xsi="http - FORBIDDEN - www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http - FORBIDDEN - www.liquibase.org/xml/ns/dbchangelog http - FORBIDDEN - www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd">
+    <changeSet author="your_name" id="1">
+        <createTable tableName="wallet">
+            <column name="uuid" type="UUID" constraints="primaryKey">
+                <constraints nullable="false"/>
+            </column>
+            <column name="balance" type="DECIMAL" constraints="nullable:false">
+                <constraints defaultValue="0" />
+            </column>
+        </createTable>
+        <createTable tableName="operation">
+            <column name="id" type="BIGINT" autoIncrement="true" constraints="primaryKey">
+                <constraints nullable="false"/>
+            </column>
+            <column name="wallet_id" type="UUID" constraints="nullable:false">
+                <constraints foreignKeyName="fk_operation_wallet" references="wallet(uuid)"/>
+            </column>
+            <column name="operation_type" type="VARCHAR" constraints="nullable:false">
+                <constraints length="10" />
+            </column>
+            <column name="amount" type="DECIMAL" constraints="nullable:false"/>
+            <column name="created_at" type="TIMESTAMP" constraints="nullable:false"/>
+        </createTable>
+    </changeSet>
+</databaseChangeLog>
